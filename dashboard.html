@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Dashboard - Employer</h2>
+<a href="{{ url_for('post_job') }}" class="btn btn-primary mb-3">Post a New Job</a>
+<ul class="list-group">
+  {% for job in jobs %}
+  <li class="list-group-item">
+    <strong>{{ job.title }}</strong> - {{ job.location }}
+    <p>Applicants:</p>
+    <ul>
+      {% for app in job.applications %}
+        <li>{{ app.user.username }} ({{ app.user.email }})</li>
+      {% else %}
+        <li>No applications yet.</li>
+      {% endfor %}
+    </ul>
+    <a href="{{ url_for('view_job', job_id=job.id) }}" class="btn btn-sm btn-outline-primary">View Job</a>
+  </li>
+{% endfor %}
+</ul>
+{% endblock %}
